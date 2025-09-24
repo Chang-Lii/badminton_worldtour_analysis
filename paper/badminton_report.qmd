@@ -27,7 +27,7 @@ The dataset contains information about 185 players who competed in the BWF World
 
 # Methods {#sec-methods}
 
-The linear regression analysis examines the relationship between the total number of wins the player had (Wins) and the key predictor - the total number of points scored by the player (pts_for). With this model, we are able to detect the impact of parameters on the total number of wins and obtain the association between them.
+The linear regression analysis examines the relationship between the total number of wins the player had (Wins) and the key predictor - the total number of points scored by the player (pts_for). With this model, we are able to detect the impact of parameters on the total number of wins and obtain the association between them.[@R_language]
 
 # Results {#sec-results}
 
