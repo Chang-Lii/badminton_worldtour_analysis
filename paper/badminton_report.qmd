@@ -16,6 +16,9 @@ geometry: margin=1in
 ---
 
 \newpage
+# Abstract
+This study investigates whether the number of points scored explains the variation in the number of wins among professional badminton players. Using data from the BWF World Tour (2018–2023), I fitted a simple linear regression model with total wins(Wins) as the response and total points scored (pts_for) as the predictor. The model shows a significant positive association between response and predictor variables ($\beta_1$ = 0.0169, $p$ \< $2.2 \times 10^{-16}$, $R^{2}$ = 0.981) . While the model explains most of the proportion of variability in wins, assumption checks of residual plots indicate violations of homoscedasticity and normality, suggesting that transformation or additional predictors may improve model accuracy in future work.
+
 
 # Introduction {#sec-intro}
 
@@ -23,35 +26,42 @@ The research aims to answer the question: Does the number of points scored expla
 
 # Data {#sec-data}
 
-The dataset contains information about 185 players who competed in the BWF World Tour from 2018–2023. There are 76 rows corresponds to a single player and includes overall performance indicators such as matches played, wins, and losses, as well as points scored, points against, and efficiency measures (win percentage and shot percentage).[@BWF_data]
+The dataset contains statistics on 185 professional badminton players who participated in the BWF World Tour between 2018 and 2023. Each row represents one player and includes key variables such as $Wins$ (number of matches won), $pts_for$ (total points scored), $pts_against$ (points conceded), and $matches_played$. This study focuses on 76 observations corresponding to singles players with complete performance records. We restrict our analysis to singles players because doubles events involve team-based factors that cannot accurately reflect an individual player's scoring ability in relation to the number of wins. The dataset also includes efficiency measures such as win percentage and shot percentage, which describe overall player performance [@BWF_data].
 
 # Methods {#sec-methods}
 
-The linear regression analysis examines the relationship between the total number of wins the player had (Wins) and the key predictor - the total number of points scored by the player (pts_for). With this model, we are able to detect the impact of parameters on the total number of wins and obtain the association between them.[@R_language]
-
-# Results {#sec-results}
-
-### Interpret the model
+The linear regression analysis examines the relationship between the total number of wins the player had ($Wins$) and the key predictor - the total number of points scored by the player ($pts\_for$). With this model, we are able to detect the impact of parameters on the total number of wins and obtain the association between them.
 
 The fitted simple linear regression model is:
 
 $$
 Wins_i = \beta_0 + \beta_1 \cdot pts\_for_i + \varepsilon_i
 $$
+Where $Wins\_i$ denotes the total number of matches won by $i^{th}$ player, $pts\_for$ denotes the total number of points the player scored. $\varepsilon_i$ is an error term assumed to follow a normal distribution with mean zero and constant variance. The intercept $\beta_0$ means the expected number of wins when no points are scored, and $\beta_1$ represents the average increase in wins for each additional point scored by a player.
+
+Estimation of coefficients is performed through Ordinary Least Squares by R language [@R_language]. We use two-sided t-test for $\beta_1$ at significant level $\alpha$ equals to $0.05$, along with the 95% confidence interval.We use ANOVA to assess the model's significance by the F-test.
+
+We detect the linear assumptions by using the below plots: residuals vs. fitted plot to check linearity and homoscedasticity, scale-location plot for constant variance, Q-Q plot for normality, and residuals vs. leverage plot and Cook’s distance help to find influential observations. 
+
+# Results {#sec-results}
 
 ![Scatter plot of wins vs points scored](pictures/scattor_plot.png){fig-align="center"}
 
-The scatter plot shows a strong positively linear relationship between wins and points scored (pts_for). Most points lie close to the regression line, however, as the values of pts_for increasing, some observations deviate from the regression line, indicates that the variability at the high performance level, this also reflects that most players have points concentrate between 0 to 500, only a few people have high performance in single matches.
+The scatter plot shows a strong positive linear relationship between the number of wins and points scored ($pts\_for$). Most observations fall close to the regression line, suggesting that players who score more points tend to achieve more wins. However, as the values of $pts\_for$ increase, some observations deviate from the regression line, indicating that the variability of wins becomes larger at high performance levels. This also reflects that most players achieve relatively moderate scoring and number of wins records; only a few people have very high performance in single matches.
 
-The results of the linear regression analysis indicate that the number of wins is predicted by the point scored(pts_for). This model highlights the central role of scored performance in driving player's performance: As the number of points scored increases, it also tends to result in an average increase in the total number of wins.
+The results of the linear regression analysis indicate that the number of wins is predicted by the point scored($pts\_for$). This model highlights the central role of scored performance in driving player's performance: As the number of points scored increases, it also tends to result in an average increase in the total number of wins.
 
 ### Estimate Coefficient
 
 95% CI for $\beta_0$ is \[-1.28870213, -0.06415109\]\
+
 95% CI for $\beta_1$ is \[0.01631484, 0.01740097\]
 
--   $\beta_0$: In the absence of any points scored, number of wins, on average, fall somewhere between -1.2887 and -0.0642\
--   $\beta_1$: For each 1 point scored by players, there will be an average increase in number of wins between 0.0163 and 0.0174 units.
+$\beta_0$: in the absence of any points scored, number of wins, on average, fall somewhere between -1.2887 and -0.0642 units.\
+
+$\beta_1$: for each 1 point scored by players, there will be an average increase in number of wins between 0.0163 and 0.0174 units.
+
+The estimator of intercept are approximate $\hat{\beta}_0 = -0.6764$ with standard error of 0.3073, indicating the true value of $\beta_0$ is expected to fall within about $\pm 0.3073$ of the estimate.
 
 The slope coefficient has an estimate of $\hat{\beta}_1 = 0.0169$ with a very small standard error of 0.00027, indicating that the estimate is very precise.
 
@@ -102,6 +112,11 @@ The F-statistic of 3825.8 $\gg 1$ shows that variation explained by the predicto
 This analysis answers the main question by showing that scoring ability has a strong and statistically significant association with wins in professional badminton singles matches. The main strength of the analysis is its high interpretability, as seen in the very considerable R\^2 and precise slope estimate. However, the obvious weaknesses include violation of the homoscedasticity, heavy-tailed residuals, and influential data points that may crucially affect the conclusion.
 
 The transformations could be considered as one of the future works, additionally, including more predictors (e.g., a dummy variable for category differences between Singles and Doubles). Further research could also explore longitudinal performance trends across different years and tournaments.
+
+# Reproducibility
+
+All analysis code, raw data, and documentation are available in GitHub repository:  
+[https://github.com/Chang-Lii/badminton_worldtour_analysis.git](https://github.com/Chang-Lii/badminton_worldtour_analysis.git)
 
 # References
 
